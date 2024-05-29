@@ -1,0 +1,125 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.logo {
+    font-family: "Sriracha", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.btn-primary {
+    background-color: #63917f !important;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #63917f90 !important;
+}
+
+
+/* header */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.smedia {
+    margin: 0 4px 0;
+}
+.smedia:hover {
+    scale: 1.2;
+}
+.navbar-brand:hover {
+    scale: 1.1;
+}
+.box-items-counter {
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+/* sidebar */
+.sidebar {
+    height: 100%; 
+    width: 20%; 
+    position: fixed; 
+    top: 0;
+    left: 0; 
+    background-color: #e8e8e8; 
+    padding-top: 20px; 
+}
+
+/* main content */
+.main-content {
+    margin-left: 20%; 
+    padding: 20px; 
+    background-color: #f9f9f9; 
+}
+
+/* footer */
+footer {
+    width: 100%;
+    background-color: black;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+@media (max-width: 768px) {
+    footer {
+        justify-content: center;
+        flex-direction: column;
+        height: -moz-fit-content;
+        height: fit-content;
+    }
+    footer * {
+        font-size: 14px !important;
+        text-align: center;
+    }
+    .footerLogo {
+        scale: 1 !important;
+    }
+    .navbar-collapse.show {
+            background-color: white;
+            color: black !important;
+            width: 100% !important;
+            height: 100vh !important;
+            position: absolute !important;
+            top: 0px !important; 
+            padding: 7% !important;
+            z-index: 1000; 
+    }
+    .navbar-collapse.show a {
+        color: black !important; 
+    }
+    .linksMobile {
+        display: block;
+        margin-bottom: 15px;
+        border-bottom: 1px solid;
+        padding-bottom: 15px;
+    }
+    .navbar-collapse {
+        transition: none !important; /* Disable transition */
+    }
+    
+  }
+  @media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        justify-content: end !important;
+    }
+  }
