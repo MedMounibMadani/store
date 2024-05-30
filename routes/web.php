@@ -70,6 +70,8 @@ Route::prefix('paiement')->group(function () {
     Route::get('/etape-deux', [CommandController::class, 'getStepTwo'])->name('get.step.two');
     Route::post('/etape-trois', [CommandController::class, 'stepThree'])->name('step.three');
     Route::get('/etape-trois', [CommandController::class, 'getStepThree'])->name('get.step.three');
+    Route::post('/success', [CommandController::class, 'success'])->name('step.success');
+    Route::get('/success', [CommandController::class, 'postSuccess'])->name('step.get.success');
 });
 
 

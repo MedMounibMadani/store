@@ -7,7 +7,9 @@ use App\Models\Category;
 use App\Models\Command;
 use App\Jobs\SendEmail;
 use App\Mail\CommandRecieved;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class CommandController extends Controller
@@ -110,40 +112,7 @@ class CommandController extends Controller
     
     public function stepThree( Request $request ) 
     {
-        // $user = auth()->user();
-        // if ( ! $user ) {
-        //     $request->validate(
-        //         [
-        //             'first_name' =>'required',
-        //             'last_name' =>'required',
-        //             'email' =>'required',
-        //             'phone' =>'required',
-        //             'address' =>'required',
-        //             'city' =>'required',
-        //             'zip_code' =>'required',
-        //             'country' =>'required',
-        //         ]
-        //     );
-        // }
-        // $command = Command::create([
-        //     'user_id' => $user? $user->id : null,
-        //     'first_name' => ucfirst($request->first_name),
-        //     'last_name' => strtoupper($request->last_name),
-        //     'email' => $request->email,
-        //     'phone' => $request->phone,
-        //     'address' => $request->address,
-        //     'city' => $request->city,
-        //     'zip_code' => $request->zip_code,
-        //     'country' => strtoupper($request->country),
-        //     'delivery' =>  Session::get('delivery'),
-        //     'installation' =>  Session::get('installation'),
-        //     'checkout' => round( Session::get('totalTTC') ), 
-        //     'status' => 'NEW'
-        // ]);
-        // foreach ( Session::get('quantity') as $articleId => $count) {
-        //     $command->articles()->attach($articleId, ['count' => $count]);
-        // }
-        // SendEmail::dispatch(new CommandRecieved($command), $command->email);   
+          
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -167,14 +136,49 @@ class CommandController extends Controller
         return response()->json([
             'clientSecret' => $paymentIntent->client_secret,
         ]);
-        dd($paymentIntent->client_secret);
-        Session::forget('articles');
-        Session::forget('quantity');
-        Session::forget('totalTTC');
-        Session::forget('totalHT');
-        Session::forget('delivery');
-        Session::forget('installation');
-
-        return redirect()->route('welcome')->with('commandSuccess', 'Votre commande à été bien prise, Merci et à bientôt.');
     }
+
+    public function success( Request $request )
+    {
+        try {
+            $user = auth()->user();
+            $command = Command::create([
+                'user_id' => $user? $user->id : null,
+                'first_name' => ucfirst($request->first_name),
+                'last_name' => strtoupper($request->last_name),
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'city' => $request->city,
+                'zip_code' => $request->zip_code,
+                'country' => strtoupper($request->country),
+                'delivery' =>  Session::get('delivery'),
+                'installation' =>  Session::get('installation'),
+                'checkout' => round( Session::get('totalTTC') ), 
+                'status' => 'NEW'
+            ]);
+            foreach ( Session::get('quantity') as $articleId => $count) {
+                $command->articles()->attach($articleId, ['count' => $count]);
+            }
+            SendEmail::dispatch(new CommandRecieved($command), $command->email);
+            Session::forget(['articles', 'quantity', 'totalTTC', 'totalHT', 'delivery', 'installation']);
+            return response()->json([
+                'message' => 'done',
+                'url' => config('app.url')
+            ]);
+        } catch (Exception $e) { 
+            Log::error('Command creation error: ' . $e->getMessage());
+            Log::error($request->all());
+            return  response()->json([
+                'message' => 'error',
+                'url' => config('app.url')
+            ]);
+        }
+        
+    }
+    public function postSuccess() 
+    {
+        return redirect()->route('welcome')->with('commandSuccess', 'Votre commande a été bien prise, Merci et à bientôt !');
+    }
+    
 }
