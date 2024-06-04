@@ -6,7 +6,13 @@ html, body {
     flex-direction: column;
 }
 
+body {
+    overflow-x: hidden;
+}
 
+.antialiased.modal-open {
+    padding-right: 0px !important;
+}
 
 .logo {
     font-family: "Sriracha", cursive;

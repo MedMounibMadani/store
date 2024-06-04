@@ -12,6 +12,29 @@
     .card:hover {
         scale: 1.1;
     }
+    @media (max-width: 768px) {
+        .article-item-pay {
+            flex-direction: column;
+        }
+        .article-item-price {
+            scale: 1.2 !important;
+            margin: 12px 0 10px;
+            transform: translate(0,0) !important;
+        }
+        .option-card-pay {
+            flex-direction: column;
+        }
+        .option-card-pay * {
+            font-size: 14px !important;
+            scale: 1 !important;
+        }
+        .fees-mobile {
+            margin-top: 7px;
+        }
+        .form-check-input[type=radio] {
+            border: 1px solid;
+        }
+    }
 </style>
 @endsection
 
@@ -28,13 +51,13 @@
             @csrf
             <ul class="list-group">
             @foreach ( $articles as $article )
-            <li class="list-group-item d-flex justify-content-between align-items-center px-4 my-2" style="min-height: 120px;" >
+            <li class="article-item-pay list-group-item d-flex justify-content-between align-items-center px-4 my-2" style="min-height: 120px;" >
                 <div class="d-flex justify-content-center align-items-center">
                     <img src="{{ $article->getFirstMediaUrl('ArticleImages') }}" height="100" style="object-fit: cover; width: 100px !important;" class="card-img-top mr-2" alt="article">
                     <b> {{ strtoupper($article->name) }} </b>
                 </div>    
-                <div class="d-flex justify-content-center align-items-center">
-                    <span class="badge bg-primary rounded-pill" style="scale: 1.5; transform: translate(-30px, 0);">
+                <div class="article-item-pay d-flex justify-content-center align-items-center">
+                    <span class="article-item-price badge bg-primary rounded-pill" style="scale: 1.5; transform: translate(-30px, 0);">
                         @auth
                             {{ $article->priceWithDiscount() . '€ P.U' }}
                         @endauth
@@ -50,7 +73,7 @@
             </li>
             @endforeach
         
-            <li class="list-group-item d-flex justify-content-between align-items-center px-4" style="min-height: 70px;" >
+            <li class="option-card-pay list-group-item d-flex justify-content-between align-items-center px-4" style="min-height: 70px;" >
                 <div class="d-flex">
                     <h5>Inclure la livraison ?</h5>
                     <div class="form-check">
@@ -66,7 +89,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center align-items-center">
+                <div class="fees-mobile d-flex justify-content-center align-items-center">
                     <b class="mx-4"> Frais de livraison </b>
                     <span class="badge bg-primary rounded-pill" style="scale: 1.5;">
                         @php 
@@ -88,7 +111,7 @@
                     </div>    
                 </div>
             @enderror
-            <li class="list-group-item d-flex justify-content-between align-items-center px-4 my-2" style="min-height: 70px;" >
+            <li class="option-card-pay list-group-item d-flex justify-content-between align-items-center px-4 my-2" style="min-height: 70px;" >
                 <div class="d-flex">
                     <h5>Inclure l'installation ?</h5>
                     <div class="form-check">
@@ -104,7 +127,7 @@
                         </label>
                     </div>
                 </div>    
-                <div class="d-flex justify-content-center align-items-center">
+                <div class="fees-mobile d-flex justify-content-center align-items-center">
                     <b class="mx-4"> Frais d'installation </b>
                     <span class="badge bg-primary rounded-pill" style="scale: 1.5;">
                         @php 

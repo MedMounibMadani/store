@@ -56,7 +56,7 @@
         </div>
     </div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+<nav class="navbar navbar-expand-lg navbar-primary" style="background-color: black;" >
   <div class="d-flex align-items-center justify-content-around" style="margin: 0 15% 0; width: 70%;" >
     <a class="navbar-brand" style="color: white; font-weight: bold;" href="{{ route('welcome') }}">Acceuil</a>
     <button class="navbar-toggler" style="background-color: white;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

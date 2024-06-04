@@ -20,75 +20,75 @@
         </style>
         @yield('style')
     </head>
-    <body class="antialiased">
-    <div style="display: flex; flex-direction: column; flex: 1;">
-    @yield('content')
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script>
-    const checkout = (baseUrl) => {
-        const checkoutData = JSON.parse(sessionStorage.getItem("items"));
-        if (checkoutData.length > 0) {
-            $.ajax({
-            url: baseUrl + '/paiement/etape-une',
-            type: 'POST',
-            data: JSON.stringify({ checkout: checkoutData }),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json'
-            })
-            .done(() => {
-                window.location.href = baseUrl + '/paiement/etape-une';
-            })
-            .fail((jqXHR, textStatus, errorThrown) => {
-                console.error('failed:', textStatus, errorThrown);
-            });
+    <body>
+        <div style="display: flex; flex-direction: column; flex: 1;">
+            @yield('content')
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+        const checkout = (baseUrl) => {
+            const checkoutData = JSON.parse(sessionStorage.getItem("items"));
+            if (checkoutData.length > 0) {
+                $.ajax({
+                url: baseUrl + '/paiement/etape-une',
+                type: 'POST',
+                data: JSON.stringify({ checkout: checkoutData }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+                })
+                .done(() => {
+                    window.location.href = baseUrl + '/paiement/etape-une';
+                })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                    console.error('failed:', textStatus, errorThrown);
+                });
+            }
         }
-    }
-    const myModalEl = document.getElementById('Panier');
-    const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
-    const boxItems = document.getElementById('pocket');
-    const itemsList = document.getElementById('ItemsList');
-    const add = (itemId, itemName, itemPrice, itemDiscount) => {
-        let data = sessionStorage.getItem("items");
-        data ?  
-            sessionStorage.setItem("items", JSON.stringify([...JSON.parse(data), { id: itemId, name: itemName, price: itemPrice, discount: itemDiscount }]) ) :
-            sessionStorage.setItem("items", JSON.stringify([{ id: itemId, name: itemName, price: itemPrice, discount: itemDiscount }]) ) ;
-        boxItems.textContent = JSON.parse(sessionStorage.getItem("items")).length;
-        itemsList.innerHTML = '';
-        JSON.parse(sessionStorage.getItem("items")).forEach(
-            item => itemsList.innerHTML += '<li class="list-group-item d-flex justify-content-between align-items-start"><div class="ms-2 me-auto"><div class="fw-bold">'+ item.name +'</div>'+ ( item.discount > 0 ? 'Remise '+ item.discount + '%' : '' ) +'</div><div class="d-flex flex-column"><span class="badge bg-primary rounded-pill">'+ item.price +'€</span><button class="badge bg-danger rounded-pill mt-1" onclick="deleteItem('+ item.id +')">suppr</button></div></li>'
-        )
-        modal.show()
-    }
-    const refreshPanier = () => {
-        itemsList.innerHTML = '';
-        if ( ( sessionStorage.getItem("items") !== null ) && JSON.parse(sessionStorage.getItem("items")).length > 0) {
+        const myModalEl = document.getElementById('Panier');
+        const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+        const boxItems = document.getElementById('pocket');
+        const itemsList = document.getElementById('ItemsList');
+        const add = (itemId, itemName, itemPrice, itemDiscount) => {
+            let data = sessionStorage.getItem("items");
+            data ?  
+                sessionStorage.setItem("items", JSON.stringify([...JSON.parse(data), { id: itemId, name: itemName, price: itemPrice, discount: itemDiscount }]) ) :
+                sessionStorage.setItem("items", JSON.stringify([{ id: itemId, name: itemName, price: itemPrice, discount: itemDiscount }]) ) ;
             boxItems.textContent = JSON.parse(sessionStorage.getItem("items")).length;
+            itemsList.innerHTML = '';
             JSON.parse(sessionStorage.getItem("items")).forEach(
                 item => itemsList.innerHTML += '<li class="list-group-item d-flex justify-content-between align-items-start"><div class="ms-2 me-auto"><div class="fw-bold">'+ item.name +'</div>'+ ( item.discount > 0 ? 'Remise '+ item.discount + '%' : '' ) +'</div><div class="d-flex flex-column"><span class="badge bg-primary rounded-pill">'+ item.price +'€</span><button class="badge bg-danger rounded-pill mt-1" onclick="deleteItem('+ item.id +')">suppr</button></div></li>'
-            )   
+            )
+            modal.show()
         }
-        else {
-            boxItems.textContent = 0;
+        const refreshPanier = () => {
+            itemsList.innerHTML = '';
+            if ( ( sessionStorage.getItem("items") !== null ) && JSON.parse(sessionStorage.getItem("items")).length > 0) {
+                boxItems.textContent = JSON.parse(sessionStorage.getItem("items")).length;
+                JSON.parse(sessionStorage.getItem("items")).forEach(
+                    item => itemsList.innerHTML += '<li class="list-group-item d-flex justify-content-between align-items-start"><div class="ms-2 me-auto"><div class="fw-bold">'+ item.name +'</div>'+ ( item.discount > 0 ? 'Remise '+ item.discount + '%' : '' ) +'</div><div class="d-flex flex-column"><span class="badge bg-primary rounded-pill">'+ item.price +'€</span><button class="badge bg-danger rounded-pill mt-1" onclick="deleteItem('+ item.id +')">suppr</button></div></li>'
+                )   
+            }
+            else {
+                boxItems.textContent = 0;
+            }
         }
-    }
-    const deleteItem = (id) => {
-        sessionStorage.setItem("items", JSON.stringify(JSON.parse(sessionStorage.getItem("items")).filter(item => item.id !== id))) ;
-        refreshPanier()
-    }
-    const clearSession = () => {
-        sessionStorage.removeItem("items");
-        refreshPanier()
-    }
-    refreshPanier();
-    
-    </script>
-    
-    @yield('javascript')
-</body>
+        const deleteItem = (id) => {
+            sessionStorage.setItem("items", JSON.stringify(JSON.parse(sessionStorage.getItem("items")).filter(item => item.id !== id))) ;
+            refreshPanier()
+        }
+        const clearSession = () => {
+            sessionStorage.removeItem("items");
+            refreshPanier()
+        }
+        refreshPanier();
+        
+        </script>
+        
+        @yield('javascript')
+    </body>
 </html>

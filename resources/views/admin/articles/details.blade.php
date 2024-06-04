@@ -59,7 +59,7 @@
                 {!! nl2br(e($article->description)) !!}
             </p>
             <div class="mb-4">
-                <b> {{ $article->days_to_delivery > 0 ? ' ( Livraison avant le ' . \Carbon\Carbon::now()->addDays($article->days_to_delivery)->format('d/m/Y') . ' ).' : '' }} </b>  
+                <b> {{ $article->days_to_delivery > 0 ? ' Livraison avant le ' . \Carbon\Carbon::now()->addDays($article->days_to_delivery)->format('d/m/Y') . '.' : '' }} </b>  
             </div>
             <h4>
                 <div class="d-flex" style="font-weight: bold;">

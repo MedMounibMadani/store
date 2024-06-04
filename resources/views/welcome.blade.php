@@ -2,16 +2,17 @@
 
 @section('style')
 <style>
-    .modal-backdrop {
-        background-color: transparent;
-    }
     .modal-dialog { 
-        top: 3rem !important; 
-        margin-right: 10% !important;
+        top: 3.21rem !important; 
+        margin-right: 2% !important;
     }
     .card:hover {
         scale: 1.05;
     }
+    .saii-mark:hover {
+        scale: 1.2;
+    }
+    
     @media (max-width: 768px) {
         .articleCard {
             width: 45% !important;
@@ -98,7 +99,7 @@
                 @endguest
                 </div>  
                 <div class="d-flex align-items-center justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
-                    <button class="mr-2" onclick="add({{ $article->id }}, '{{ substr($article->name, 0, 12) . '..' }}', '{{ auth()->user() ? $article->priceWithDiscount() : $article->priceTtcWithDiscount() }}', {{ $article->discount }} )">
+                    <button class="mr-2" style="background-color: transparent;" onclick="add({{ $article->id }}, '{{ substr($article->name, 0, 12) . '..' }}', '{{ auth()->user() ? $article->priceWithDiscount() : $article->priceTtcWithDiscount() }}', {{ $article->discount }} )">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5z"/>
                         </svg>
@@ -116,6 +117,33 @@
             </div>
         </div>
     </div>
+    <div class="my-4 py-4 mx-0" style="background-color: black;">
+        <div class="d-flex align-items-center justify-content-center flex-column">
+            <img src="{{ url('saii-logo.png') }}" class="img-fluid" height="150" width="150" alt="" style="filter: brightness(0) invert(1);">
+            <div class="d-flex align-items-center justify-content-around flex-wrap mt-4" style="width: 80%; margin: 0 10% 0; color: white;">
+                <div class="saii-mark d-flex align-items-center justify-content-center flex-column mx-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-file-lock-fill" viewBox="0 0 16 16">
+                        <path d="M7 6a1 1 0 0 1 2 0v1H7zM6 8.3c0-.042.02-.107.105-.175A.64.64 0 0 1 6.5 8h3a.64.64 0 0 1 .395.125c.085.068.105.133.105.175v2.4c0 .042-.02.107-.105.175A.64.64 0 0 1 9.5 11h-3a.64.64 0 0 1-.395-.125C6.02 10.807 6 10.742 6 10.7z"/>
+                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-2 6v1.076c.54.166 1 .597 1 1.224v2.4c0 .816-.781 1.3-1.5 1.3h-3c-.719 0-1.5-.484-1.5-1.3V8.3c0-.627.46-1.058 1-1.224V6a2 2 0 1 1 4 0"/>
+                    </svg>
+                    <b class="mt-3">PAIEMENT SÉCURISÉ</b>
+                </div>
+                <div class="saii-mark d-flex align-items-center justify-content-center flex-column mx-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+                        <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+                    </svg>
+                    <b class="mt-3">LIVRAISON RAPIDE</b>
+                </div>
+                <div class="saii-mark d-flex align-items-center justify-content-center flex-column mx-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+                        <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                        <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z"/>
+                    </svg>
+                    <b class="mt-3">SERVICE CLIENT</b>
+                </div>
+            </div>
+        </div>
+    </div> 
     @if( isset($offers) && count($offers) > 0 )
     <div class="container py-4">
         <h3 class="text-center pb-4"> EXPLORER NOS OFFRES </h3>
@@ -127,7 +155,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $offer->title }}</h5>
                     <p class="card-text"> {{ $offer->description }} </p>
-                    <p class="d-flex justify-content-end"> <a href="{{ route('devis.get', $offer->id) }}" class="btn btn-success"> Demander un devis </a> </p>
+                    <p class="d-flex justify-content-end"> <a href="{{ route('devis.get', $offer->id) }}" class="btn bg-primary" style="color:rgba(249, 249, 249, 0.9);"> Demander un devis </a> </p>
                 </div>
             </div>
         </div>

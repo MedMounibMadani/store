@@ -44,6 +44,15 @@
             color: red;
             margin-top: 10px;
         }
+        
+        @media (max-width: 768px) {
+            .items-payment {
+                flex-direction: column;
+            }
+            .payment-part-two {
+                margin-top: 10px; 
+            } 
+        }
 </style>
 @endsection
 
@@ -58,7 +67,7 @@
         </h3>
         <form id="payment-form">
         @csrf
-        <div class="d-flex align-items-center justify-content-center pt-4">
+        <div class="items-payment d-flex align-items-center justify-content-center pt-4">
             <div class="mx-4">
                 <div class="form-outline mb-2 finput">
                     <input type="text" id="fname" name="first_name" placeholder="Prénom" value="{{ auth()->user()->first_name ?? '' }}" class="form-control" required/>
@@ -85,7 +94,7 @@
                     <input type="text" id="country" name="country" placeholder="Pays" value="{{ auth()->user()->country ?? '' }}" class="form-control" required/>
                 </div>
             </div>
-            <div class="mx-4 d-flex align-items-center justify-content-center flex-column" style="width: 350px;">
+            <div class="payment-part-two mx-4 d-flex align-items-center justify-content-center flex-column" style="width: 350px;">
                 @auth
                     <div class="d-flex align-items-center justify-content-between" style="width: 295px;">
                         <b>
