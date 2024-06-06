@@ -2,12 +2,9 @@
 
 @section('style')
 <style>
-    .modal-backdrop {
-        background-color: transparent;
-    }
     .modal-dialog { 
-        top: 3rem !important; 
-        margin-right: 10% !important;
+        top: 4rem !important; 
+        margin-right: 10%;
     }
     .card:hover {
         scale: 1.1;
@@ -42,7 +39,7 @@
 
 @include('layout.header')
 
-<div style="background-color: lavender;   flex: 1;">
+<div style="background-color: lavender;   flex: 1;padding-top: 151px;">
     <div class="container py-4">
         <h3 class="text-center mb-4">
             Votre commande

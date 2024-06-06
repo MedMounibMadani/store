@@ -15,6 +15,13 @@
     .formDevis {
         width: 50%;
     }
+   
+    @media (max-width: 768px) {
+        .formDevis {
+            width: 92%;
+            margin: 0 4% 0;
+        }
+    }
 </style>
 @endsection
 
@@ -22,7 +29,7 @@
 
 @include('layout.header')
 
-<div style="background-color: lavender;  flex: 1;">
+<div style="background-color: lavender;  flex: 1;padding-top: 151px;">
     <div class="container py-4 align-items-center d-flex justify-content-center flex-column">
         <h3 class="text-center mb-4">
             DEMANDE DE DEVIS

@@ -2,12 +2,9 @@
 
 @section('style')
 <style>
-    .modal-backdrop {
-        background-color: transparent;
-    }
     .modal-dialog { 
-        top: 3rem !important; 
-        margin-right: 10% !important;
+        top: 4rem !important; 
+        margin-right: 10%;
     }
     .article-image img {
         width: 368px !important;
@@ -20,7 +17,7 @@
 
 @section('content')
 @include('layout.header')
-<div style="background-color: lavender; ">
+<div style="background-color: lavender; padding-top: 151px;">
 <div class="container pt-4">
     <div class="row py-4">
         <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
@@ -139,7 +136,7 @@
                     @endguest
                     </div>  
                     <div class="d-flex align-items-center justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
-                        <button class="mr-2" onclick="add({{ $art->id }}, '{{ substr($art->name, 0, 12) . '..' }}', '{{ auth()->user() ? $art->priceWithDiscount() : $art->priceTtcWithDiscount() }}', {{ $art->discount }} )">
+                        <button class="mr-2" style="background-color: transparent; color: black;" onclick="add({{ $art->id }}, '{{ substr($art->name, 0, 12) . '..' }}', '{{ auth()->user() ? $art->priceWithDiscount() : $art->priceTtcWithDiscount() }}', {{ $art->discount }} )">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5z"/>
                             </svg>

@@ -3,14 +3,24 @@
 @section('style')
 <style>
     .modal-dialog { 
-        top: 3.21rem !important; 
-        margin-right: 2% !important;
+        top: 4rem !important; 
+        margin-right: 10%;
     }
     .card:hover {
         scale: 1.05;
     }
     .saii-mark:hover {
         scale: 1.2;
+    }
+    .offer-item {
+        width: 94%;
+        margin: 0 3% 0;
+        padding: 2%;
+        height: 220px;
+        color: white;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
     }
     
     @media (max-width: 768px) {
@@ -36,7 +46,7 @@
 @section('content')
 
 @include('layout.header')
-<div style="background: linear-gradient(rgba(249, 249, 249, 0.9), rgba(249, 249, 249, 0.9)), url('login.jpg');background-size: cover; flex: 1; ">
+<div style="padding-top: 151px; background: linear-gradient(rgba(249, 249, 249, 0.9), rgba(249, 249, 249, 0.9)), url('login.jpg');background-size: cover; flex: 1; ">
     @if ( session()->has('commandSuccess') )
         <div class="container pt-4">
             <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 18px;">
@@ -99,7 +109,7 @@
                 @endguest
                 </div>  
                 <div class="d-flex align-items-center justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
-                    <button class="mr-2" style="background-color: transparent;" onclick="add({{ $article->id }}, '{{ substr($article->name, 0, 12) . '..' }}', '{{ auth()->user() ? $article->priceWithDiscount() : $article->priceTtcWithDiscount() }}', {{ $article->discount }} )">
+                    <button class="mr-2" style="background-color: transparent; color: black;" onclick="add({{ $article->id }}, '{{ substr($article->name, 0, 12) . '..' }}', '{{ auth()->user() ? $article->priceWithDiscount() : $article->priceTtcWithDiscount() }}', {{ $article->discount }} )">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5z"/>
                         </svg>
@@ -147,19 +157,16 @@
     @if( isset($offers) && count($offers) > 0 )
     <div class="container py-4">
         <h3 class="text-center pb-4"> EXPLORER NOS OFFRES </h3>
-        <div class="d-flex justify-content-center flex-wrap">
-        @foreach( $offers as $offer )
-        <div class="col-sm-12 col-md-6 col-lg-4 m-2">
-            <div class="card mb-3">
-                <img src="{{ $offer->getFirstMediaUrl('OfferImages') != '' ? $offer->getFirstMediaUrl('OfferImages') : url('login.jpg') }}" height="200" style="object-fit: cover;" class="card-img-top" alt="offre">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $offer->title }}</h5>
-                    <p class="card-text"> {{ $offer->description }} </p>
-                    <p class="d-flex justify-content-end"> <a href="{{ route('devis.get', $offer->id) }}" class="btn bg-primary" style="color:rgba(249, 249, 249, 0.9);"> Demander un devis </a> </p>
+        <div class="owl-carousel">
+            @foreach( $offers as $offer )
+                <div class="mb-3 offer-item" style="background-size: cover !important; background-repeat: no-repeat !important; background-position: center; background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, black), url('{{ $offer->getFirstMediaUrl('OfferImages') != '' ? $offer->getFirstMediaUrl('OfferImages') : url('login.jpg') }}')";">
+                    <div>
+                        <b>{{ $offer->title }}</b> <br>
+                        <small> {{ $offer->description }} </small>
+                    </div> 
+                    <a href="{{ route('devis.get', $offer->id) }}" class="btn bg-light" style="min-width: 170px; color:black !important;"> Demander un devis </a> 
                 </div>
-            </div>
-        </div>
-        @endforeach
+            @endforeach
         </div>
     </div>
     @endif
@@ -173,4 +180,26 @@
        clearSession()
     </script>
     @endif
+    <script>
+        $(document).ready(function(){
+          $(".owl-carousel").owlCarousel({
+                    loop: true,  
+                    margin: 10,  
+                    autoplay: true,  
+                    autoplayTimeout: 3000, 
+                    autoplayHoverPause: true,
+                    responsive: {
+                        0: {
+                            items: 1.1
+                        },
+                        750: {
+                            items: 2.2
+                        },
+                        1500: {
+                            items: 3.3
+                        }
+                    }
+          });
+        });
+    </script>
 @endsection

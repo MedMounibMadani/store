@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Offer;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -134,7 +135,8 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $categories = Category::all();        
+        $categories = Category::all();    
+        $offers = Offer::all();
         $articles = Article::where(function($query) use ($request) {
             $query->where("name", "like", "%".$request->search."%")
                   ->orWhere("description", "like", "%".$request->search."%");
@@ -142,6 +144,6 @@ class ArticleController extends Controller
         ->where('count', '>', 0)
         ->orderByDesc('vues')
         ->paginate(20);
-        return view('welcome', compact('categories', 'articles'));
+        return view('welcome', compact('categories', 'articles', 'offers'));
     }
 }
