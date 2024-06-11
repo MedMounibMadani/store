@@ -11,6 +11,33 @@ body {
     font-family: "Work Sans", sans-serif;
 }
 
+.parallelogram {
+    width: fit-content;
+    padding: 2% 4% 2%; 
+	height: 45px;
+	transform: skew(-20deg);
+	background: black;
+}
+
+.text-parallelogram {
+    transform: skew(20deg);
+	color: white;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: black; 
+    color: #fff; 
+    border-color: black;
+    font-weight: bold;
+}
+
+.pagination .page-link {
+    background-color: #fff; 
+    color: black; 
+    border-color: transparent;
+}
+
+
 .antialiased.modal-open {
     padding-right: 0px !important;
 }

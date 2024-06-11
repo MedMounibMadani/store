@@ -5,7 +5,7 @@
         </a>
     </div>
     <div style="color: white;">
-        <ul style="list-style-type: none;">
+        <ul style="list-style-type: none; padding-left: 0px;">
             @foreach( $categories as $cat )
                 <li >
                    <h6>

@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
     $categories = Category::all();
-    $offers = Offer::all();
+    $offers = Offer::where('status', 1)->get();
     $category = isset($request->categorie) ? Category::where('slug', $request->categorie)->first() : null;
     $articles = Article::where(function ($query) use ($category) {
         if ( $category ) {
@@ -79,10 +79,19 @@ Route::prefix('paiement')->group(function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', function () {
-            $cmds = Command::count();
+            $cmds = Command::where('status', '<>', 'DONE')->count();
             $arts = Article::count();
+            $topSeen = Article::orderBy('vues', 'desc')->take(3)->get();
+            $topSold = Article::select('articles.*')
+            ->join('command_details', 'articles.id', '=', 'command_details.article_id')
+            ->selectRaw('SUM(command_details.count) as commands_counter_sum')
+            ->groupBy('articles.id')
+            ->orderByDesc('commands_counter_sum')
+            ->take(3)
+            ->get();
             $cats = Category::count();
-            return view('admin.home', compact('cmds', 'arts', 'cats'));
+            $offers = Offer::count();
+            return view('admin.home', compact('cmds', 'arts', 'cats', 'offers', 'topSeen', 'topSold'));
         })->name('admin.home');
 
       

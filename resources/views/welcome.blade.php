@@ -156,7 +156,9 @@
     </div> 
     @if( isset($offers) && count($offers) > 0 )
     <div class="container py-4">
-        <h3 class="text-center pb-4"> EXPLORER NOS OFFRES </h3>
+        <div class="d-flex align-items-center justify-content-center mb-3">
+            <h3 class="parallelogram d-flex align-items-center justify-content-center"> <b class="text-parallelogram"> EXPLORER NOS OFFRES </b> </h3>
+        </div>
         <div class="owl-carousel">
             @foreach( $offers as $offer )
                 <div class="mb-3 offer-item" style="background-size: cover !important; background-repeat: no-repeat !important; background-position: center; background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, black), url('{{ $offer->getFirstMediaUrl('OfferImages') != '' ? $offer->getFirstMediaUrl('OfferImages') : url('login.jpg') }}')";">
