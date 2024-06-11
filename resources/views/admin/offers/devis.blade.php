@@ -14,6 +14,16 @@
     }
     .formDevis {
         width: 50%;
+        padding-left: 2%;
+    }
+    .offer-cover {
+        width: 330px;  
+        height: 468px; 
+        border-radius: 10%;
+        object-fit: cover;
+    }
+    .offer-cover:hover {
+        filter: grayscale(100%);
     }
    
     @media (max-width: 768px) {
@@ -37,8 +47,10 @@
         <h5 class="text-center mb-4">
             ( {{ $offer->title }} )
         </h5>
-        <form action="{{ route('devis.store', $offer->id) }}" method="post" class="formDevis py-4">
-        @csrf
+        <div class="d-flex align-items-center d-flex justify-content-center">
+            <img src="{{ $offer->getFirstMediaUrl('OfferImages') != '' ? $offer->getFirstMediaUrl('OfferImages') : url('login.jpg') }}" class="img-fluid d-none d-sm-block offer-cover" alt="">
+            <form action="{{ route('devis.store', $offer->id) }}" method="post" class="formDevis py-4">
+                @csrf
                 <input type="hidden" name="offer" value="{{ $offer->id }}"/>
                 <div class="form-outline mb-2 finput">
                     <input type="text" name="full_name" placeholder="Nom et Prénom *" value="{{ isset(auth()->user()->last_name) ? auth()->user()->first_name.' '.auth()->user()->last_name : '' }}" class="form-control" required/>
@@ -60,7 +72,8 @@
                             Envoyer
                     </button>
                 </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

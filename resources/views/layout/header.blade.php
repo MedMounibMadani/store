@@ -42,7 +42,7 @@
                 <div class="modal-content">
                 <div class="modal-body">
                     <div class="d-flex align-items-center justify-content-center flex-column">
-                        <h4>Votre panier </h4>
+                        <h4 style="color: black;">Votre panier </h4>
                         <ol class="list-group list-group-numbered" id="ItemsList" style="width: 100%;">
                             
                         </ol>

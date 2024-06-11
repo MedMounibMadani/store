@@ -8,6 +8,7 @@ html, body {
 
 body {
     overflow-x: hidden;
+    font-family: "Work Sans", sans-serif;
 }
 
 .antialiased.modal-open {
@@ -34,13 +35,13 @@ body {
 
 /* header */
 .header-container {
-    background-color: white; 
-    width: 100%; 
-    position: fixed; 
+    background-color: white;
+    width: 100%;
+    position: fixed;
     z-index: 1000;
 }
 .scrolling {
-    padding: 0 !important;
+    /* padding: 0 !important; */
     background-color: black;
     color: white;
     border-bottom: 3px solid white;
@@ -76,20 +77,20 @@ body {
 
 /* sidebar */
 .sidebar {
-    height: 100%; 
-    width: 20%; 
-    position: fixed; 
+    height: 100%;
+    width: 20%;
+    position: fixed;
     top: 0;
-    left: 0; 
-    background-color: #e8e8e8; 
-    padding-top: 20px; 
+    left: 0;
+    background-color: #e8e8e8;
+    padding-top: 20px;
 }
 
 /* main content */
 .main-content {
-    margin-left: 20%; 
-    padding: 20px; 
-    background-color: #f9f9f9; 
+    margin-left: 20%;
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
 /* footer */
@@ -122,12 +123,12 @@ footer {
             width: 100% !important;
             height: 100vh !important;
             position: absolute !important;
-            top: 0px !important; 
+            top: 0px !important;
             padding: 7% !important;
-            z-index: 1000; 
+            z-index: 1000;
     }
     .navbar-collapse.show a {
-        color: black !important; 
+        color: black !important;
     }
     .linksMobile {
         display: block;
@@ -136,7 +137,7 @@ footer {
         padding-bottom: 15px;
     }
     .navbar-collapse {
-        transition: none !important; 
+        transition: none !important;
     }
     .modal-dialog {
         margin-right: 0 !important;

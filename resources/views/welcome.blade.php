@@ -164,7 +164,7 @@
                         <b>{{ $offer->title }}</b> <br>
                         <small> {{ $offer->description }} </small>
                     </div> 
-                    <a href="{{ route('devis.get', $offer->id) }}" class="btn bg-light" style="min-width: 170px; color:black !important;"> Demander un devis </a> 
+                    <a href="{{ route('devis.get', $offer->id) }}" class="btn bg-light" style="border-radius: 21px; min-width: 180px; color:black !important;"> Demander un devis </a> 
                 </div>
             @endforeach
         </div>
@@ -193,10 +193,10 @@
                             items: 1.1
                         },
                         750: {
-                            items: 2.2
+                            items: 2.1
                         },
                         1500: {
-                            items: 3.3
+                            items: 3.1
                         }
                     }
           });
