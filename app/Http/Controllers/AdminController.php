@@ -15,7 +15,7 @@ class AdminController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email'],
+            'email' => 'required | email | unique:users',
             'password' => 'required| min:8 | confirmed',
             'password_confirmation' => 'required | min:8',
             'phone' => 'required',
@@ -26,7 +26,7 @@ class AdminController extends Controller
             'address' => 'required',
             'city' => 'required',
             'zip_code' => 'required',
-            'country '=> 'required'
+            'country' => 'required',
         ]);
         $user = User::create([
             'email' => $request->email,
@@ -85,7 +85,7 @@ class AdminController extends Controller
             'email' => 'required'
         ]);
         $user = User::where('email', $request->email)->first();
-        if ( $user ) {
+        if ( $user && ! in_array('admin', $user->getRoleNames()->toArray() ) ) {
             $currentTimestamp = now()->timestamp;
             $token = encrypt($user->id.' '.$currentTimestamp);
             $url = config('app.url') . '/reset-password?token=' . $token;

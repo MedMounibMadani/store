@@ -19,12 +19,11 @@
               
            <p> Suite à votre demande de renouvellement du mot de passe, veuillez cliquer sur le bouton ci-dessous. </p> <br>
 
-            <a href="{{ $url }}" class="btn btn-warning"> Nouveau mot de passe </a> <br>
-            
+            <a href="{{ $url }}" class="btn btn-warning" style="color: black; font-weight: bold;"> Nouveau mot de passe </a> <br>
+            <br>
             <p> NB: ce lien expire dans 60mn. </p>
 
             <p class="mt-4">Si vous rencontrez des problèmes au niveau du bouton, cliquer directement sur ce lien : </p> <br>
-
             <a href="{{ $url }}"> {{ $url }} </a> <br>
 
         </div>

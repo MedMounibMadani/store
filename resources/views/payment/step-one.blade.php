@@ -9,6 +9,9 @@
     .card:hover {
         scale: 1.1;
     }
+    .form-check-input[type=radio] {
+            border: 1px solid;
+    }
     @media (max-width: 768px) {
         .article-item-pay {
             flex-direction: column;
@@ -28,9 +31,6 @@
         .fees-mobile {
             margin-top: 7px;
         }
-        .form-check-input[type=radio] {
-            border: 1px solid;
-        }
     }
 </style>
 @endsection
@@ -42,7 +42,7 @@
 <div style="background-color: lavender;   flex: 1;padding-top: 151px;">
     <div class="container py-4">
         <h3 class="text-center mb-4">
-            Votre commande
+            VOTRE COMMANDE
         </h3>
         <form action="{{ route('step.two') }}" method="post">
             @csrf
@@ -86,6 +86,20 @@
                         </label>
                     </div>
                 </div>
+                <div>
+                    @php
+                    $deliveryDates = [];
+                    foreach ( $articles as $article ) {
+                        $articleDelivery = $article->days_to_delivery;
+                        if ( ! in_array($articleDelivery, $deliveryDates) ) {
+                            array_push($deliveryDates, $articleDelivery);
+                        }
+                    }
+                    @endphp
+                    @if ( max($deliveryDates) > 0 )
+                        <h5>Livraison avant le {{ \Carbon\Carbon::now()->addDays( max($deliveryDates) )->format('d/m/Y') }} </h5>
+                    @endif
+                </div>
                 <div class="fees-mobile d-flex justify-content-center align-items-center">
                     <b class="mx-4"> Frais de livraison </b>
                     <span class="badge bg-primary rounded-pill" style="scale: 1.5;">
@@ -103,51 +117,18 @@
             </li>        
             @error('delivery')
                 <div class="row">
-                    <div class="alert alert-danger" style="width: 90%; margin: 10px 5% 0;" role="alert">
+                    <div class="alert alert-danger mb-2" style="width: 90%; margin: 10px 5% 0;" role="alert">
                         Veuillez choisir à inclure la livraison ou non. 
                     </div>    
                 </div>
             @enderror
-            <li class="option-card-pay list-group-item d-flex justify-content-between align-items-center px-4 my-2" style="min-height: 70px;" >
-                <div class="d-flex">
-                    <h5>Inclure l'installation ?</h5>
-                    <div class="form-check">
-                        <input class="form-check-input mx-2" type="radio" name="install" value="1" id="install">
-                        <label class="form-check-label" for="install">
-                            Oui
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input mx-2" type="radio" name="install" value="0" id="noinstall">
-                        <label class="form-check-label" for="noinstall">
-                            Non
-                        </label>
-                    </div>
-                </div>    
-                <div class="fees-mobile d-flex justify-content-center align-items-center">
-                    <b class="mx-4"> Frais d'installation </b>
-                    <span class="badge bg-primary rounded-pill" style="scale: 1.5;">
-                        @php 
-                            $installations = [];
-                            foreach($articles as $instFee)
-                            {
-                                array_push($installations, $instFee->installation_fees);
-                            }
-                            echo array_sum($installations) . '€';
-                        @endphp
-                    </span>
-                    <input type="hidden" name="installFee" value="{{ array_sum($installations) }}">
-                </div>    
-            </li>
-            @error('install')
-                <div class="row">
-                    <div class="alert alert-danger" style="width: 90%; margin: 0 5% 10px;" role="alert">
-                        Veuillez choisir à inclure l'installation ou non. 
-                    </div>    
+            <li class="option-card-pay list-group-item px-4">
+                <div class="form-outline my-1 finput">
+                    <input type="text" name="message" placeholder="Ajouter un note ( demande / préférence.. )" class="form-control" value="{{ old('message') }}"/>
                 </div>
-            @enderror
-        </ul>
-        <div class="d-flex justify-content-center align-items-center">
+            </li>    
+            </ul>
+        <div class="mt-4 d-flex justify-content-center align-items-center">
             <button type="submit" class="btn btn-success" style="width: 150px;"> Suivant </button>
         </div>
         </form>

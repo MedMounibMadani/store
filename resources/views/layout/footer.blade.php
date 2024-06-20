@@ -20,7 +20,7 @@
     <div style="color: white;">
         <p>
             <b> Adresse </b> <br>
-            214 Rue de l'Artisanat, 01390 Saint-André-de-Corcy
+            662 Rue des Jonchères 69730 Genay FRANCE
         </p>
         <p>
             <b> Email </b> <br>

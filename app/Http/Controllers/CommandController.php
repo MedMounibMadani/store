@@ -92,8 +92,8 @@ class CommandController extends Controller
             'articles' => 'required|array',
             'delivery' => 'required',
             'deliveryFee' => 'required',
-            'installFee' => 'required',
-            'install' => 'required'
+            // 'installFee' => 'required',
+            // 'install' => 'required'
         ]);
         $totalTTC = 0;
         $totalHT = 0;
@@ -107,6 +107,7 @@ class CommandController extends Controller
         Session::put('installation', $request->install);
         Session::put('totalTTC', $totalTTC + $fees);
         Session::put('totalHT', $totalHT + $fees);
+        Session::put('clientMessage', $request->message ?? '');
         return redirect()->route('get.step.two');
     }
     
@@ -153,12 +154,25 @@ class CommandController extends Controller
                 'zip_code' => $request->zip_code,
                 'country' => strtoupper($request->country),
                 'delivery' =>  Session::get('delivery'),
-                'installation' =>  Session::get('installation'),
+                'installation' =>  Session::get('installation') ?? false,
                 'checkout' => round( Session::get('totalTTC') ), 
+                'message' =>  Session::get('clientMessage'),
                 'status' => 'NEW'
             ]);
+            $deliveryDates = [];
             foreach ( Session::get('quantity') as $articleId => $count) {
+                $articleItem = Article::find($articleId);
+                $articleDelivery = $articleItem->days_to_delivery;
+                if ( ! in_array($articleDelivery, $deliveryDates) ) {
+                    array_push($deliveryDates, $articleDelivery);
+                }
+                $articleItem->count = $articleItem->count - $count; 
+                $articleItem->save();
                 $command->articles()->attach($articleId, ['count' => $count]);
+            }
+            if (max($deliveryDates) > 0) {
+                $command->delivery_date = \Carbon\Carbon::now()->addDays( max($deliveryDates) );
+                $command->save();
             }
             SendEmail::dispatch(new CommandRecieved($command), $command->email);
             Session::forget(['articles', 'quantity', 'totalTTC', 'totalHT', 'delivery', 'installation']);
@@ -178,7 +192,7 @@ class CommandController extends Controller
     }
     public function postSuccess() 
     {
-        return redirect()->route('welcome')->with('commandSuccess', 'Votre commande a été bien prise, Merci et à bientôt !');
+        return redirect()->route('welcome')->with('commandSuccess', 'Votre commande a été bien prise, un e-mail de confirmation vous a été envoyé, dans le cas échéant veuillez nous contacter. Merci et à bientôt !');
     }
     
 }

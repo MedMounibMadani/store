@@ -127,7 +127,7 @@
             </div>
         </div>
     </div>
-    <div class="my-4 py-4 mx-0" style="background-color: black;">
+    <div class="mt-4 py-4 mx-0" style="background-color: black;">
         <div class="d-flex align-items-center justify-content-center flex-column">
             <img src="{{ url('saii-logo.png') }}" class="img-fluid" height="150" width="150" alt="" style="filter: brightness(0) invert(1);">
             <div class="d-flex align-items-center justify-content-around flex-wrap mt-4" style="width: 80%; margin: 0 10% 0; color: white;">
@@ -154,7 +154,7 @@
             </div>
         </div>
     </div> 
-    @if( isset($offers) && count($offers) > 0 )
+    {{-- @if( isset($offers) && count($offers) > 0 )
     <div class="container py-4">
         <div class="d-flex align-items-center justify-content-center mb-3">
             <h3 class="parallelogram d-flex align-items-center justify-content-center"> <b class="text-parallelogram"> EXPLORER NOS OFFRES </b> </h3>
@@ -171,7 +171,7 @@
             @endforeach
         </div>
     </div>
-    @endif
+    @endif --}}
 </div>
 @include('layout.footer')
 @endsection

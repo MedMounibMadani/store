@@ -60,7 +60,7 @@
 <div style="background-color: lavender;  flex: 1;padding-top: 151px;">
     <div class="container py-4">
         <h3 class="text-center mb-4">
-            Paiement
+            PAIEMENT
         </h3>
         <form id="payment-form">
         @csrf

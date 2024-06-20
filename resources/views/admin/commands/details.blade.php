@@ -17,12 +17,7 @@
     @if( $command->status === "NEW" ) 
         @if( $command->delivery )
             <button class="btn btn-success">
-                à livrer
-            </button>
-        @endif
-        @if( $command->installation )
-            <button class="btn btn-success">
-                à installer
+                à livrer {{ $command->delivery_date ? 'avant le '. \Carbon\Carbon::parse($command->delivery_date)->format('d/m/Y') : '' }}
             </button>
         @endif
     @endif
@@ -42,6 +37,7 @@
                     <p class="card-text"> <b> Email : </b> {{ $command->email }} </p>
                     <p class="card-text"> <b> Tél : </b> {{ $command->phone }} </p>
                     <p class="card-text"> <b> Adresse : </b> {{ $command->address .', '. $command->zip_code .' '. $command->city .' '. $command->country }} </p>
+                    <p class="card-text"> <b> Message du client : </b> {{ $command->message }} </p>
                 </div>
             </div>
         </div>

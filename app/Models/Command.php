@@ -14,6 +14,7 @@ class Command extends Model
         'status',
         'checkout',
         'delivery',
+        'delivery_date',
         'installation',
         'email',
         'phone',
@@ -23,6 +24,7 @@ class Command extends Model
         'city',
         'zip_code',
         'country',
+        'message',
         'user_id'
     ];
     protected $table = 'commands';

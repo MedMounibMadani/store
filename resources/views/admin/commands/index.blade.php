@@ -16,7 +16,6 @@
                 <th>Somme (€)</th>
                 <th>Date</th>
                 <th>Livraison insluse</th>
-                <th>Installation incluse</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -31,7 +30,6 @@
                     <td> {{ \Carbon\Carbon::parse($command->created_at)->format('d/m/Y h:i') }} </td>
                     
                     <td> {{ $command->delivery == 1 ? 'Oui' : 'Non' }} </td>
-                    <td> {{ $command->installation == 1 ? 'Oui' : 'Non' }} </td>
                     <td>
                         <a href="{{ route('commands.detail', $command->id ) }}" class="btn btn-success"> Consulter </a>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cmd{{ $command->id }}">
