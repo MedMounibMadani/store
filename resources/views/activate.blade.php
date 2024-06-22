@@ -64,36 +64,24 @@
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           @endif
-        <h3 class="pb-4 text-center">CONNEXION</h3>
-        <form method="POST" action="{{ route('admin.login') }}" class="d-flex flex-column justify-content-center align-items-center">
-          @csrf
-          <!-- Email input -->
-          @if ( session()->has('error') )
+          @if ( session()->has('fail') )
             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 12px;">
-              {{ __('Ces identifiants ne correspondent pas à aucun utilisateur.') }}
+              {{ session()->get('fail') }}
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           @endif
+        <h3 class="pb-4 text-center">ACTIVATION</h3>
+        <form method="POST" action="{{ route('activate.account', $userId) }}" class="d-flex flex-column justify-content-center align-items-center">
+          @csrf  
           <div data-mdb-input-init class="form-outline mb-4 finput">
-            <input type="email" id="form2Example1" name="email" placeholder="Adresse Mail" class="form-control" value="{{ old('email') }}" required/>
-          </div>
-          <!-- Password input -->
-          <div data-mdb-input-init class="form-outline mb-4 finput">
-            <input type="password" id="form2Example2" name="password" placeholder="Mot de passe" class="form-control" required/>
+            <input type="text" id="form2Example1" name="code" placeholder="CODE" class="form-control" required/>
           </div>
           <!-- Submit button -->
-          <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Se connecter</button>
+          <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Activer</button>
         </form>
         <p class="text-center">
-          <a href="{{ route('password.forgot') }}">Mot de passe oublié ?</a>
+          <a href="{{ route('activate.resend', $userId) }}" class="btn btn-warning"> Renvoyer le code </a>
         </p>
-        <p class="text-center">
-          Nouveau chez SAII ?
-        </p>
-        <div class="text-center">
-        <a href="{{ route('register') }}" class="btn btn-warning">
-          Créer votre compte
-        </a>
         </div>
       </div>
     </div>   

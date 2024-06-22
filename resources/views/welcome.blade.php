@@ -79,7 +79,7 @@
                     - {{ $article->discount }} %
                 </div>
             @endif
-            <img src="{{ $article->getFirstMediaUrl('ArticleImages') != '' ? $article->getFirstMediaUrl('ArticleImages') : url('default.png') }}" height="200" style="object-fit: cover;" class="card-img-top" alt="article">
+            <img src="{{ $article->getFirstMediaUrl('ArticleImages') != '' ? $article->getFirstMediaUrl('ArticleImages') : url('default.png') }}" height="200" style="object-fit: cover;" class="card-img-top" loading="lazy" alt="{{ $article->name }}">
             <div class="card-body">
                 <h5 class="card-title"> {{ $article->name }} </h5>
                 <div style="font-weight: bold; padding-bottom: 36px;">

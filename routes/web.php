@@ -49,6 +49,10 @@ Route::get('/login', function () {
 })->name('login');
 Route::post('/login', [AdminController::class, 'login'])->name('admin.login');
 
+Route::get('/activation/compte/{id}', [AdminController::class, 'activate'])->name('activate');
+Route::get('/activation/renvoi/{id}', [AdminController::class, 'resendCode'])->name('activate.resend');
+Route::post('/activation/compte/{id}', [AdminController::class, 'activateAccount'])->name('activate.account');
+
 Route::get('/register', function () {
     return view('register');
 } )->name('register');

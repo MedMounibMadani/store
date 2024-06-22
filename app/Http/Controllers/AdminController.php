@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Jobs\SendEmail;
+use Illuminate\Support\Str;
 use App\Mail\ResetPassword;
+use App\Mail\ActivateAccount;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -18,7 +20,7 @@ class AdminController extends Controller
             'email' => 'required | email | unique:users',
             'password' => 'required| min:8 | confirmed',
             'password_confirmation' => 'required | min:8',
-            'phone' => 'required',
+            'phone' => 'required | unique:users',
             'first_name' => 'required',
             'last_name' => 'required',
             'company_name' => 'required',
@@ -39,10 +41,41 @@ class AdminController extends Controller
             'address' => $request->address,
             'city' => $request->city,
             'zip_code' => $request->zip_code,
-            'country' => strtoupper($request->country)
+            'country' => strtoupper($request->country),
+            'code' => Str::random(7),
         ]);
         $user->assignRole('client');
-        return redirect()->route('login')->with('message', 'Votre compte a été bien crée.');
+        SendEmail::dispatch(new ActivateAccount($user), $user->email);   
+        return redirect()->route('activate', $user->id)->with('message', 'Votre code d\'activation vous a été bien envoyé par mail à '. $user->email);
+    }
+
+    public function activate($id)
+    {
+        $userId = $id;
+        return view('activate', compact('userId'));
+    }
+
+    public function resendCode($id)
+    {
+        $user = User::find($id);
+        $user->code = Str::random(7);
+        $user->save();
+        SendEmail::dispatch(new ActivateAccount($user), $user->email);   
+        return redirect()->route('activate', $user->id)->with('message', 'Votre code d\'activation vous a été bien envoyé par mail à '. $user->email);
+    }
+
+    public function activateAccount(Request $request, $id)
+    {
+        $request->validate([
+            'code' => ['required'],
+        ]);
+        $user = User::findOrFail($id);
+        if ($user && $request->code == $user->code ) {
+            $user->verified_at = now();
+            $user->save();
+            return redirect()->route('login')->with('message', 'Votre compte a été bien activé.');
+        }
+        return redirect()->back()->with('fail', 'Code erroné.');
     }
 
     public function login(Request $request) 
@@ -51,16 +84,22 @@ class AdminController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $isAdmin = in_array("admin", auth()->user()->getRoleNames()->toArray());
 
-            return $isAdmin ? redirect()->route('admin.home') : redirect()->route('welcome');
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            $isAdmin = in_array("admin", $user->getRoleNames()->toArray());
+            if (!$isAdmin && $user->verified_at == null) {
+                return redirect()->route('activate', $user->id)->with('fail', 'Veuillez procéder à l\'activation de votre compte.');
+            }
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return $isAdmin ? redirect()->route('admin.home') : redirect()->route('welcome');
+            }
         }
         
         return back()->with([
-            'error' => 'The provided credentials do not match admin user.',
+            'error' => 'The provided credentials do not match any user.',
         ]);
     }
     public function logout(Request $request)

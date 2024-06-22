@@ -27,7 +27,8 @@ class AdminSeeder extends Seeder
             'address' => '',
             'city' => '',
             'zip_code' => '',
-            'country' => 'FRANCE'
+            'country' => 'FRANCE',
+            'verified_at' => now(),
         ]);
         $admin->assignRole('admin');
 
@@ -43,7 +44,9 @@ class AdminSeeder extends Seeder
             'address' => '14 Rue bellevile',
             'city' => 'Lyon',
             'zip_code' => '69003',
-            'country' => 'FRANCE'
+            'country' => 'FRANCE',
+            'code' => 'ABCDABCD',
+            'verified_at' => now(),
         ]);
         $client->assignRole('client');
     }

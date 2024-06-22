@@ -30,7 +30,9 @@ class User extends Authenticatable
         'address',
         'city',
         'zip_code',
-        'country'
+        'country',
+        'code',
+        'verified_at'
     ];
 
     public function commands()
