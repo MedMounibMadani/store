@@ -38,20 +38,6 @@ services:
             MYSQL_ROOT_PASSWORD: 'root'
         networks:
             - sail
-    mailDev:
-        image: 'maildev/maildev'
-        container_name: "maildev"
-        ports:
-            - '1080:1080'
-        environment:
-            MAIL_DRIVER: '${MAIL_DRIVER}'
-            MAIL_HOST: '${MAIL_HOST}'
-            MAIL_PORT: '${MAIL_PORT}'
-            MAIL_USERNAME: '${MAIL_USERNAME}'
-            MAIL_PASSWORD: '${MAIL_PASSWORD}'
-            MAIL_ENCRYPTION: '${MAIL_ENCRYPTION}'
-        networks:
-            - sail
 networks:
     sail:
         driver: bridge

@@ -63,12 +63,12 @@
                     <input name="days_to_delivery" type="number" class="form-control" required>
                 </div>
             </div>
-            <div class="col-4">
+            {{-- <div class="col-4">
                 <div class="mb-3">
                     <label class="form-label">Frais d'installation (€)</label>
                     <input name="installation_fees" type="number" class="form-control">
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="mb-3">
             <label class="form-label">Description</label> <br>

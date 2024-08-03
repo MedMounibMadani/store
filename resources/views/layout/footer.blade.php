@@ -26,10 +26,12 @@
             <b> Email </b> <br>
             contact.osman@saii.fr
         </p>
+        @auth
         <p>
             <b> Téléphone </b> <br>
-            +33 7 78 25 77 15
+            +33 6 78 89 07 83
         </p>
+        @endauth
     </div>
     <div style="color: white;">
         Created By 

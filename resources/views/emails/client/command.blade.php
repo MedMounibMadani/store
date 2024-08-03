@@ -35,7 +35,7 @@
             Si vous avez des questions ou des préoccupations concernant votre commande, n'hésitez pas à nous contacter : <br>
 
             Email : contact.osman@saii.fr <br>
-            Téléphone : +33 7 78 25 77 15 <br>
+            Téléphone : +33 6 78 89 07 83 <br>
 
             Nous vous remercions encore une fois pour votre achat et votre confiance en SAII. Nous espérons que vous apprécierez nos produits. <br>
             </p>
