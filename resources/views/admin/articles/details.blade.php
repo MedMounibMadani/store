@@ -36,7 +36,7 @@
                 </div>
             @endif
             <h2>
-                <div class="mb-2 bg-primary d-flex align-items-center justify-content-center" style="height: 34px; width: 85px; color: white; font-weight: bold; font-size: 28px;">
+                <div class="mb-2 bg-primary d-flex align-items-center justify-content-center" style="height: 34px; width: fit-content; padding: 0 20px 0; color: white; font-weight: bold; font-size: 28px;">
                     {{ $article->category->name ?? '' }}
                 </div> {{ $article->name }}
             </h2>
